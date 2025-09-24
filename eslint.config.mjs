@@ -20,5 +20,8 @@ export default defineConfig([
   ]),
   {
     extends: compat.extends("next/core-web-vitals", "next/typescript"),
+    "rules": {
+    "react/no-unescaped-entities": "off"
+    },
   }
 ]);

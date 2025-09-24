@@ -4,7 +4,6 @@ import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import CardCarousel from "@/components/CardCarousel";
 
 export default function Home() {
   return (
@@ -21,7 +20,6 @@ export default function Home() {
 
           <h1 className="text-center mx-3">About</h1>
 
-          {/* <CardCarousel /> */}
           <CardGroup className="mb-5">
             <Card className="card-custom mx-2 pt-5 mb-5">
               <Card.Img variant="top" src="environemntalismcard.jpeg" alt="Nature Scene"/>

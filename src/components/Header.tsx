@@ -37,7 +37,7 @@ const Header: React.FC<HeaderProps> = ({ state }) => {
   return (
     <Navbar expand="lg" >
       <Container className="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Toggle aria-controls="basic-navbar-nav"/>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto text-light">
             <Nav.Link className='text-light' href="/">Kizzy's Website</Nav.Link>
