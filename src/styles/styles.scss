@@ -1,0 +1,242 @@
+@import "bootstrap/scss/bootstrap.scss";
+$success: #7952b3;
+
+// Font-size map: customize these values to change available font-size utilities
+// Example: change `md` to 1.125rem or add a new key `xl: 1.75rem`
+$font-sizes: (
+  xs: 0.75rem,
+  sm: 0.875rem,
+  md: 1rem,
+  lg: 1.25rem,
+  xl: 1.5rem,
+);
+
+$text-shadow: (
+  s: 2px 2px 2px rgba($black, 1),
+  m: 2px 2px rgba($black, 1),
+  l: 2px 2px rgba($black, 1),
+);
+
+// Helper to read the map with a fallback
+@function font-size($key, $fallback: 1rem) {
+  @if map-has-key($font-sizes, $key) {
+    @return map-get($font-sizes, $key);
+  }
+  @return $fallback;
+}
+
+// Generate utility classes .fs-<key> for each map entry
+@each $name, $size in $font-sizes {
+  .fs-#{$name} {
+    font-size: $size !important;
+  }
+}
+
+// Helper to read the map with a fallback
+@function text-shadow($key, $fallback: 1rem) {
+  @if map-has-key($text-shadow, $key) {
+    @return map-get($text-shadow, $key);
+  }
+  @return $fallback;
+}
+
+// Generate utility classes .fs-<key> for each map entry
+@each $name, $shadow in $text-shadow {
+  .tsh-#{$name} {
+    text-shadow: $shadow !important;
+  }
+}
+
+.index-body {
+  padding: 1.5rem;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+.background-image {
+  background-image: url(../../public/indexbackground.jpeg),
+    radial-gradient(transparent, rgba(0, 0, 0, 0.7));
+  background-blend-mode: overlay;
+  background-size: cover;
+  background-position: center center;
+}
+
+.freelance-background-image {
+  background-image: url(../../public/freelancebackground.jpeg);
+  background-size: cover;
+  background-position: center center;
+  min-width: 100vw;
+  display: flex;
+}
+
+.bg-overlay {
+  background: radial-gradient(transparent 60%, rgba(0, 0, 0, 0.7));
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.btn-outline-custom {
+  background-color: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+  letter-spacing: 1.25px;
+  transition: all 0.5s;
+  font-size: 15px;
+  padding: 10px;
+}
+
+a.btn-outline-custom:target {
+  background-color: black;
+  border: 2px solid #ffbf00;
+}
+
+.btn-rounded {
+  border-radius: 30px;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+}
+
+.section {
+  padding-top: 80px;
+  padding-bottom: 80px;
+  position: relative;
+  background-color: #fff;
+}
+
+.about-detail .about-work li:not(:last-child)::after {
+  content: "";
+  height: 3px;
+  width: 3px;
+  border-radius: 50%;
+  background-color: #757575;
+  margin: 0px 12px;
+  position: relative;
+  display: inline-block;
+  top: -3px;
+}
+
+.skill-custom .progress {
+  height: 4px;
+  margin-bottom: 40px;
+  margin-top: 10px;
+}
+
+.skill-custom .progress-bar {
+  background: #ffbf00;
+}
+
+.yellow {
+  color: #ffbf00;
+}
+
+.btn-custom {
+  background-color: #000;
+  border: 2px solid #000;
+  color: #fff;
+  transition: all 0.5s;
+  font-size: 15px;
+  text-transform: capitalize;
+}
+
+.bg-yellow {
+  background-color: #ffbf00 !important;
+}
+
+.card-custom {
+  background-color: transparent;
+  border: none;
+  border-radius: 0px !important;
+  width: 100%;
+}
+
+.card-fade {
+  background: linear-gradient(white 45%, transparent 100%);
+}
+
+.visuallyhidden {
+  position: absolute;
+  z-index: -1;
+  right: 0;
+  opacity: 0;
+}
+
+.container-carousel {
+  height: 1000px;
+  overflow: hidden;
+}
+
+.card-carousel {
+  --card-width: 80%;
+  --card-max-width: 30%;
+  --card-height: 100%;
+  --carousel-min-width: 600px;
+  z-index: 1;
+  // position: relative;
+  // margin: 0 auto;
+  // width: 100%;
+  // height: var(--card-height);
+  // min-width: var(--carousel-min-width);
+  transition: filter .3s ease;
+}
+
+.card-carousel.smooth-return {
+  transition: all .2s ease;
+}
+
+.card-carousel .card {
+  width: var(--card-width);
+  max-width: var(--card-max-width);
+  text-align: center;
+  min-width: 250px;
+  height: var(--card-height);
+  position: absolute;
+  margin: 0 auto;
+  color: rgba(0,0,0,.5);
+  transition: inherit;
+  -webkit-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.3);
+  -moz-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.3);
+  box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.3);
+  filter: brightness(.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.card.highlight {
+  filter: brightness(1)
+}
+
+.image-container {
+  width: 8em;
+  height: 8em;
+  position: relative;
+  background-size: cover;
+  margin-bottom: 2em;
+  border-radius: 100%;
+  padding: 1em;
+  -webkit-box-shadow: inset 0px 0px 17px 0px rgba(0,0,0,0.3);
+  -moz-box-shadow: inset 0px 0px 17px 0px rgba(0,0,0,0.3);
+  box-shadow: inset 0px 0px 17px 0px rgba(0,0,0,0.3);
+}
+
+.image-container::after {
+  content: "";
+  display: block;
+  width: 120%;
+  height: 120%;
+  border-radius: 100%;
+  position: absolute;
+  top: calc(-10% - 3px);
+  left: calc(-10% - 3px);
+}
