@@ -189,7 +189,7 @@ export default function Home() {
                 <div id="message"></div>
                 <form
                   name="contact-form"
-                  id="working_form"
+                  id="contact-form"
                   onSubmit={handleSubmit}
                 >
                   <div className="row">
@@ -207,6 +207,7 @@ export default function Home() {
                           required
                         />
                       </div>
+                      <ValidationError prefix="Name" field="name" errors={state.errors} />
                     </div>
                     <div className="col-lg-6">
                       <div className="form-group mt-2 mb-3">
@@ -234,7 +235,7 @@ export default function Home() {
                           id="subject"
                           placeholder="Your Subject.."
                         />
-                        <ValidationError prefix="subject" field="subject" errors={state.errors} />
+                        <ValidationError prefix="Subject" field="subject" errors={state.errors} />
                       </div>
                     </div>
                   </div>
