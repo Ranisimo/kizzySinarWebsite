@@ -3,8 +3,15 @@ import Container from "react-bootstrap/Container";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import CVDownload from "@/components/CVDownload";
+import { useForm, ValidationError } from "@formspree/react";
 
 export default function Home() {
+  const [state, handleSubmit] = useForm("contact-form");
+
+  if (state.succeeded) {
+    return <p>Thanks for your submission!</p>;
+  }
+
   return (
     <>
       <Head>
@@ -181,10 +188,9 @@ export default function Home() {
               <div className="contact_form">
                 <div id="message"></div>
                 <form
-                  method="post"
-                  action="php/contact.php"
                   name="contact-form"
                   id="working_form"
+                  onSubmit={handleSubmit}
                 >
                   <div className="row">
                     <div className="col-lg-6">
@@ -207,14 +213,14 @@ export default function Home() {
                         <label htmlFor="email" className="fw-bold mb-2">
                           Email address
                         </label>
-                        <input
+                        <input id="email" 
+                          type="email" 
                           name="email"
-                          id="email"
-                          type="email"
                           className="form-control"
-                          placeholder="Your email..."
+                          placeholder="Your email..." 
                           required
                         />
+                        <ValidationError prefix="Email" field="email" errors={state.errors} />
                       </div>
                     </div>
                     <div className="col-lg-12">
@@ -228,35 +234,39 @@ export default function Home() {
                           id="subject"
                           placeholder="Your Subject.."
                         />
+                        <ValidationError prefix="subject" field="subject" errors={state.errors} />
                       </div>
                     </div>
                   </div>
                   <div className="row">
                     <div className="col-lg-12">
                       <div className="form-group mt-2 mb-3">
-                        <label htmlFor="comments" className="fw-bold mb-2">
+                        <label htmlFor="messsage" className="fw-bold mb-2">
                           Message
                         </label>
                         <textarea
-                          name="comments"
-                          id="comments"
+                          name="messsage"
+                          id="messsage"
                           rows={4}
                           className="form-control"
                           placeholder="Your message..."
                         ></textarea>
+                        <ValidationError prefix="Message" field="message" errors={state.errors} />
                       </div>
                     </div>
                   </div>
                   <div className="row">
                     <div className="col-sm-12 text-right">
-                      <button
-                        type="submit"
+                      <button 
+                        type="submit" 
+                        disabled={state.submitting}
                         id="submit"
                         name="send"
                         className="submitBnt btn btn-custom"
                       >
                         Send Message
                       </button>
+                      <ValidationError errors={state.errors} />
                       <div id="simple-msg"></div>
                     </div>
                   </div>

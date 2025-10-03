@@ -3,7 +3,7 @@
     "contact-form": {
       "name": "Contact Form",
       "actions": [
-        {"type": "email", "to": "your@email.com"}
+        {"type": "email", "to": "kizzysinar@gmail.com"}
       ]
     }
   }
