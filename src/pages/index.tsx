@@ -3,6 +3,7 @@ import Container from "react-bootstrap/Container";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import CVDownload from "@/components/CVDownload";
+import ContactForm from "@/components/ContactForm";
 
 export default function Home() {
   return (
@@ -178,89 +179,8 @@ export default function Home() {
               </div>
             </div>
             <Container className="col-lg-8">
-              <div className="contact_form">
-                <div id="message"></div>
-                <form
-                  method="post"
-                  action="php/contact.php"
-                  name="contact-form"
-                  id="working_form"
-                >
-                  <div className="row">
-                    <div className="col-lg-6">
-                      <div className="form-group mt-2 mb-3">
-                        <label htmlFor="name" className="fw-bold mb-2">
-                          Name
-                        </label>
-                        <input
-                          name="name"
-                          id="name"
-                          type="text"
-                          className="form-control"
-                          placeholder="Your name..."
-                          required
-                        />
-                      </div>
-                    </div>
-                    <div className="col-lg-6">
-                      <div className="form-group mt-2 mb-3">
-                        <label htmlFor="email" className="fw-bold mb-2">
-                          Email address
-                        </label>
-                        <input
-                          name="email"
-                          id="email"
-                          type="email"
-                          className="form-control"
-                          placeholder="Your email..."
-                          required
-                        />
-                      </div>
-                    </div>
-                    <div className="col-lg-12">
-                      <div className="form-group mt-2 mb-3">
-                        <label htmlFor="subject" className="fw-bold mb-2">
-                          Subject
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="subject"
-                          placeholder="Your Subject.."
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-lg-12">
-                      <div className="form-group mt-2 mb-3">
-                        <label htmlFor="comments" className="fw-bold mb-2">
-                          Message
-                        </label>
-                        <textarea
-                          name="comments"
-                          id="comments"
-                          rows={4}
-                          className="form-control"
-                          placeholder="Your message..."
-                        ></textarea>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-sm-12 text-right">
-                      <button
-                        type="submit"
-                        id="submit"
-                        name="send"
-                        className="submitBnt btn btn-custom"
-                      >
-                        Send Message
-                      </button>
-                      <div id="simple-msg"></div>
-                    </div>
-                  </div>
-                </form>
+              <div className="contact-form">
+                <ContactForm />
               </div>
             </Container>
           </div>
