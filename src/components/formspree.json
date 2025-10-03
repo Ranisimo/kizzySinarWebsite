@@ -1,0 +1,10 @@
+{
+  "forms": {
+    "contact-form": {
+      "name": "Contact Form",
+      "actions": [
+        {"type": "email", "to": "your@email.com"}
+      ]
+    }
+  }
+}
