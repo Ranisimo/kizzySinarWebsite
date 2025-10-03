@@ -3,15 +3,9 @@ import Container from "react-bootstrap/Container";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import CVDownload from "@/components/CVDownload";
-import { useForm, ValidationError } from "@formspree/react";
+import ContactForm from "@/components/ContactForm";
 
 export default function Home() {
-  const [state, handleSubmit] = useForm("contact-form");
-
-  if (state.succeeded) {
-    return <p>Thanks for your submission!</p>;
-  }
-
   return (
     <>
       <Head>
@@ -185,93 +179,8 @@ export default function Home() {
               </div>
             </div>
             <Container className="col-lg-8">
-              <div className="contact_form">
-                <div id="message"></div>
-                <form
-                  name="contact-form"
-                  id="contact-form"
-                  onSubmit={handleSubmit}
-                >
-                  <div className="row">
-                    <div className="col-lg-6">
-                      <div className="form-group mt-2 mb-3">
-                        <label htmlFor="name" className="fw-bold mb-2">
-                          Name
-                        </label>
-                        <input
-                          name="name"
-                          id="name"
-                          type="text"
-                          className="form-control"
-                          placeholder="Your name..."
-                          required
-                        />
-                      </div>
-                      <ValidationError prefix="Name" field="name" errors={state.errors} />
-                    </div>
-                    <div className="col-lg-6">
-                      <div className="form-group mt-2 mb-3">
-                        <label htmlFor="email" className="fw-bold mb-2">
-                          Email address
-                        </label>
-                        <input id="email" 
-                          type="email" 
-                          name="email"
-                          className="form-control"
-                          placeholder="Your email..." 
-                          required
-                        />
-                        <ValidationError prefix="Email" field="email" errors={state.errors} />
-                      </div>
-                    </div>
-                    <div className="col-lg-12">
-                      <div className="form-group mt-2 mb-3">
-                        <label htmlFor="subject" className="fw-bold mb-2">
-                          Subject
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="subject"
-                          placeholder="Your Subject.."
-                        />
-                        <ValidationError prefix="Subject" field="subject" errors={state.errors} />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-lg-12">
-                      <div className="form-group mt-2 mb-3">
-                        <label htmlFor="messsage" className="fw-bold mb-2">
-                          Message
-                        </label>
-                        <textarea
-                          name="messsage"
-                          id="messsage"
-                          rows={4}
-                          className="form-control"
-                          placeholder="Your message..."
-                        ></textarea>
-                        <ValidationError prefix="Message" field="message" errors={state.errors} />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-sm-12 text-right">
-                      <button 
-                        type="submit" 
-                        disabled={state.submitting}
-                        id="submit"
-                        name="send"
-                        className="submitBnt btn btn-custom"
-                      >
-                        Send Message
-                      </button>
-                      <ValidationError errors={state.errors} />
-                      <div id="simple-msg"></div>
-                    </div>
-                  </div>
-                </form>
+              <div className="contact-form">
+                <ContactForm />
               </div>
             </Container>
           </div>

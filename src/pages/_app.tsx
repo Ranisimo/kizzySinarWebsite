@@ -4,7 +4,7 @@ import type { AppProps } from "next/app";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-          <FormspreeProvider project={process.env.NEXT_PUBLIC_FORMSPREE_PROJECT}>
+          <FormspreeProvider project={process.env.NEXT_PUBLIC_FORM}>
             <Component {...pageProps} />
           </FormspreeProvider>
         )
