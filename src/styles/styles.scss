@@ -53,6 +53,11 @@ $text-shadow: (
   min-width: 100vw;
 }
 
+.projects-body {
+  padding: 1.5rem;
+  min-width: 100vw;
+}
+
 .background-image {
   background-image: url(../../public/indexbackground.jpeg),
     radial-gradient(transparent, rgba(0, 0, 0, 0.7));

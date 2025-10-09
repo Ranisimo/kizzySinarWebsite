@@ -12,17 +12,34 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Container as="main" className="py-4 px-3 mx-auto">
-        <body className="text-bg-dark text-center">
-          <Header state="projects" />
+      
+      <Container
+        as="section"
+        className="text-bg-dark text-center projects-body"
+      >
+        <Header state="projects" />
 
+        <Container as="main" className="py-4 px-3 mx-auto">
           <h1>Projects</h1>
-          
-          <p>Coming soon!</p>
-
-          <Footer />
-        </body>
+          <p className="fst-italic fs-sm yellow">
+            Coming soon...
+          </p>
+        </Container>
       </Container>
+
+      
+
+      <Container as="section" className="section">
+        <Container className="container">
+          <p className="text-muted mt-3">To create my FISC study tool, I originally had everything on my local machine and this required installing SQL Servers and services. I used a <code>.csv</code> from Plant Atlas 2020 and removed various columns that I didn't need or use in the database. 
+          However, when I transitioned from my local machine to a hosting service, Vercel, this posed a number of problems with compliling and building which resulted in needing to rollback some of my changes made and start from scratch. Fortunately I had been using github and was able to push these changes. 
+          <span className="yellow">Fast forward to now, and I'm not just getting ready to set up my database and storage with Vercel.</span> However, they didn't have a good SQL or MySQL solution and after carefully looking through their options, I came across Neon. Neon is a serverless postgreSQL service, which is not something I had experience with. 
+          I had to install pgAdmin to connect to the Neon databse and use a copy command <code>\copy customer FROM '/path/to/CSVFILE.csv' DELIMITER ',' CSV HEADER</code> and copy over 3496 entries.</p>
+        </Container>   
+      </Container>
+
+      <Footer />
+      
     </>
   );
 }

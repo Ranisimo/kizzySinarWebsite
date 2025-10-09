@@ -27,6 +27,7 @@ const Header: React.FC<HeaderProps> = ({ state }) => {
               <Nav.Link className='text-light' href="/">Home</Nav.Link>
               <Nav.Link className='text-light' href="about">About</Nav.Link>
               <Nav.Link className='text-light' href="projects">Projects</Nav.Link>
+              <Nav.Link className='text-light' href="fiscstudy">FISC</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
