@@ -2,11 +2,17 @@
 import React, { useEffect, useState } from 'react';
 import Head from "next/head";
 import Container from "react-bootstrap/Container";
-import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 
 export default function Home() {
-  const [plants, setPlants] = useState<any[]>([]);
+  interface PlantTaxon {
+    id: number;
+    taxonName: string;
+    vernacular: string;
+    [key: string]: string | number | null;
+  }
+
+  const [plants, setPlants] = useState<PlantTaxon[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [sortKey, setSortKey] = useState<string>('');
@@ -19,8 +25,12 @@ export default function Home() {
         if (!res.ok) throw new Error('Failed to fetch plants_taxon');
         const data = await res.json();
         setPlants(data);
-      } catch (err: any) {
-        setError(err.message);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError('An unknown error occurred');
+        }
       } finally {
         setLoading(false);
       }
@@ -32,13 +42,20 @@ export default function Home() {
   const sortedPlants = React.useMemo(() => {
     if (!sortKey) return plants;
     const sorted = [...plants].sort((a, b) => {
-      if (a[sortKey] === undefined || b[sortKey] === undefined) return 0;
-      if (typeof a[sortKey] === 'string' && typeof b[sortKey] === 'string') {
+      const aVal = a[sortKey];
+      const bVal = b[sortKey];
+      if (aVal == null && bVal == null) return 0;
+      if (aVal == null) return 1;
+      if (bVal == null) return -1;
+      if (typeof aVal === 'string' && typeof bVal === 'string') {
         return sortOrder === 'asc'
-          ? a[sortKey].localeCompare(b[sortKey])
-          : b[sortKey].localeCompare(a[sortKey]);
+          ? aVal.localeCompare(bVal)
+          : bVal.localeCompare(aVal);
       }
-      return sortOrder === 'asc' ? a[sortKey] - b[sortKey] : b[sortKey] - a[sortKey];
+      if (typeof aVal === 'number' && typeof bVal === 'number') {
+        return sortOrder === 'asc' ? aVal - bVal : bVal - aVal;
+      }
+      return 0;
     });
     return sorted;
   }, [plants, sortKey, sortOrder]);
