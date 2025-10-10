@@ -9,6 +9,8 @@ export default function Home() {
   const [plants, setPlants] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [sortKey, setSortKey] = useState<string>('');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
   useEffect(() => {
     async function fetchPlants() {
@@ -25,6 +27,31 @@ export default function Home() {
     }
     fetchPlants();
   }, []);
+
+  // Sorting logic
+  const sortedPlants = React.useMemo(() => {
+    if (!sortKey) return plants;
+    const sorted = [...plants].sort((a, b) => {
+      if (a[sortKey] === undefined || b[sortKey] === undefined) return 0;
+      if (typeof a[sortKey] === 'string' && typeof b[sortKey] === 'string') {
+        return sortOrder === 'asc'
+          ? a[sortKey].localeCompare(b[sortKey])
+          : b[sortKey].localeCompare(a[sortKey]);
+      }
+      return sortOrder === 'asc' ? a[sortKey] - b[sortKey] : b[sortKey] - a[sortKey];
+    });
+    return sorted;
+  }, [plants, sortKey, sortOrder]);
+
+  // Click handler for column headers
+  const handleSort = (key: string) => {
+    if (sortKey === key) {
+      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortKey(key);
+      setSortOrder('asc');
+    }
+  };
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -76,16 +103,23 @@ export default function Home() {
         ) : error ? (
           <p style={{ color: 'red' }}>{error}</p>
         ) : (
-          <table border="1" cellPadding="5">
+          <table border={1} cellPadding={5}>
             <thead>
               <tr>
                 {plants.length > 0 && Object.keys(plants[0]).map((key) => (
-                  <th key={key}>{key}</th>
+                  <th
+                    key={key}
+                    style={{ cursor: 'pointer', textDecoration: key === 'taxonName' ? 'underline' : undefined }}
+                    onClick={() => handleSort(key)}
+                  >
+                    {key}
+                    {sortKey === key ? (sortOrder === 'asc' ? ' ▲' : ' ▼') : ''}
+                  </th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {plants.map((row, idx) => (
+              {sortedPlants.map((row, idx) => (
                 <tr key={idx}>
                   {Object.values(row).map((val, i) => (
                     <td key={i}>{String(val)}</td>
