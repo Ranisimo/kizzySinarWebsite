@@ -8,7 +8,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ error: 'Method not allowed' });
   }
   try {
-    const data = await sql`SELECT * FROM plants_taxon`;
+    const data = await sql`SELECT taxonName, vernacular FROM plants_taxon`;
     return res.status(200).json(data);
   } catch (error) {
     console.error(error);

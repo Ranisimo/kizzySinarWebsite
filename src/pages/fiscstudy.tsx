@@ -13,6 +13,7 @@ export default function Home() {
   }
 
   const [plants, setPlants] = useState<PlantTaxon[]>([]);
+  const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [sortKey, setSortKey] = useState<string>('');
@@ -38,10 +39,20 @@ export default function Home() {
     fetchPlants();
   }, []);
 
-  // Sorting logic
+  // Filter and sorting logic
+  const filteredPlants = React.useMemo(() => {
+    if (!search) return plants;
+    const lower = search.toLowerCase();
+    return plants.filter(row =>
+      Object.values(row).some(val =>
+        val !== null && String(val).toLowerCase().includes(lower)
+      )
+    );
+  }, [plants, search]);
+
   const sortedPlants = React.useMemo(() => {
-    if (!sortKey) return plants;
-    const sorted = [...plants].sort((a, b) => {
+    if (!sortKey) return filteredPlants;
+    const sorted = [...filteredPlants].sort((a, b) => {
       const aVal = a[sortKey];
       const bVal = b[sortKey];
       if (aVal == null && bVal == null) return 0;
@@ -58,7 +69,7 @@ export default function Home() {
       return 0;
     });
     return sorted;
-  }, [plants, sortKey, sortOrder]);
+  }, [filteredPlants, sortKey, sortOrder]);
 
   // Click handler for column headers
   const handleSort = (key: string) => {
@@ -106,53 +117,62 @@ export default function Home() {
         <Header state="projects" />
 
         <Container as="main" className="py-4 px-3 mx-auto">
-          <h1>FISC</h1>
+          <h1>FISC Study Tool</h1>
           <p className="fst-italic fs-sm yellow">
             Coming soon...
           </p>
         </Container>
-      </Container>
+      
 
-      <Container as="section" className="text-bg-dark text-center projects-body">
-        <h2>Plants Taxon Table</h2>
-        {loading ? (
-          <p>Loading...</p>
-        ) : error ? (
-          <p style={{ color: 'red' }}>{error}</p>
-        ) : (
-          <table border={1} cellPadding={5}>
-            <thead>
-              <tr>
-                {plants.length > 0 && Object.keys(plants[0]).map((key) => (
-                  <th
-                    key={key}
-                    style={{ cursor: 'pointer', textDecoration: key === 'taxonName' ? 'underline' : undefined }}
-                    onClick={() => handleSort(key)}
-                  >
-                    {key}
-                    {sortKey === key ? (sortOrder === 'asc' ? ' ▲' : ' ▼') : ''}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {sortedPlants.map((row, idx) => (
-                <tr key={idx}>
-                  {Object.values(row).map((val, i) => (
-                    <td key={i}>{String(val)}</td>
+        <Container as="section" className="text-bg-dark mx-auto">
+          <h2>Plants Taxon Table</h2>
+          <input
+            type="text"
+            placeholder="Search..."
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            className="form-control mx-auto mb-3"
+            style={{ maxWidth: 200 }}
+          />
+          {loading ? (
+            <p>Loading...</p>
+          ) : error ? (
+            <p style={{ color: 'red' }}>{error}</p>
+          ) : (
+            <table className="table table-hover table-bordered mx-auto">
+              <thead className="table-dark">
+                <tr>
+                  {plants.length > 0 && Object.keys(plants[0]).map((key) => (
+                    <th
+                      key={key}
+                      style={{ cursor: 'pointer', textDecoration: key === 'taxonName' ? 'underline' : undefined }}
+                      onClick={() => handleSort(key)}
+                    >
+                      {key}
+                      {sortKey === key ? (sortOrder === 'asc' ? ' ▲' : ' ▼') : ''}
+                    </th>
                   ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-      </Container>
+              </thead>
+              <tbody className="table-group-divider">
+                {sortedPlants.map((row, idx) => (
+                  <tr key={idx}>
+                    {Object.values(row).map((val, i) => (
+                      <td key={i}>{String(val)}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </Container>
 
-      <Container as="section" className="section"> 
-        <form onSubmit={handleSubmit}>
-          <input type="text" placeholder="write a comment" name="comment" />
-          <button type="submit">Submit</button>
-        </form>
+        {/* <Container as="section" className="section"> 
+          <form onSubmit={handleSubmit}>
+            <input type="text" placeholder="write a comment" name="comment" />
+            <button type="submit">Submit</button>
+          </form>
+        </Container> */}
       </Container>
     </>
   );
